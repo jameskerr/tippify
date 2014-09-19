@@ -6,9 +6,9 @@ get '/' do
 end
 
 post '/tippify' do
-	@input  = params[:starting_html]
+    @input = params["uploaded_file"][:tempfile].read
 	begin
-		@output = Tippify.new(params[:starting_html]).replace!
+		@output = Tippify.new(@input).replace!
 		erb :index
 	rescue => e
 		@output = "There has been an error here!  This is the problem: #{e}"
